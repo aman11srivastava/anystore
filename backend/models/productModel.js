@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { required } = require("nodemon/lib/config");
 const productSchema = mongoose.Schema({
   name: {
     type: String,

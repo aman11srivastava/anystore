@@ -9,9 +9,6 @@ const connectToCloudDatabase = () => {
     })
     .then(() => {
       console.log("Conneciton to cloud database successful");
-    })
-    .catch((error) => {
-      console.log("Failed to connect with cloud service", error);
     });
 };
 

@@ -13,9 +13,9 @@ export const Product = ({product}) => {
             <img src={product.images[0].url} alt={product.name}/>
             <p>{product.name}</p>
             <div>
-                <ReactStars {...options}/> <span>(256 Reviews)</span>
+                <ReactStars {...options}/> <span>({product.numOfReviews || 0} Reviews)</span>
             </div>
-            <span>{product.price}</span>
+            <span>{`₹${product.price}`}</span>
         </Link>
     )
 }

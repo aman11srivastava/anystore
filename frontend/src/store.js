@@ -1,10 +1,11 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
-import {productReducer} from "./redux/reducers/productReducer";
+import {productDetailsReducer, productReducer} from "./redux/reducers/productReducer";
 
 const reducer = combineReducers({
-    products: productReducer
+    products: productReducer,
+    productDetails: productDetailsReducer
 })
 
 let initialState = {};

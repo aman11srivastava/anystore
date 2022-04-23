@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import {CgMouse} from "react-icons/all";
 import './Home.css'
-import Product from "./Product";
 import MetaData from "../layout/MetaData";
 import {useDispatch, useSelector} from "react-redux";
-import {getProducts} from "../../redux/actions/productAction";
+import {clearErrors, getProducts} from "../../redux/actions/productAction";
 import {Loader} from "../layout/Loader/Loader";
 import {useAlert} from "react-alert";
+import ProductCard from "./ProductCard";
 
 export const Home = () => {
     const alert = useAlert();
@@ -15,10 +15,11 @@ export const Home = () => {
 
     useEffect(() => {
         if (error) {
-            return alert.error(error || "Internal Server Error")
+            alert.error(error || "Internal Server Error")
+            dispatch(clearErrors())
         }
         dispatch(getProducts())
-    }, [dispatch, error])
+    }, [dispatch, error, alert])
 
     return (
         <>
@@ -37,8 +38,8 @@ export const Home = () => {
                         </div>
                         <h2 className="homeHeading">Featured Products</h2>
                         <div className="container" id="container">
-                            {products && products.products && products.products.map((product) => (
-                                <Product key={product._id} product={product}/>
+                            {products && products.map((product) => (
+                                <ProductCard key={product._id} product={product}/>
                             ))}
                         </div>
                     </>

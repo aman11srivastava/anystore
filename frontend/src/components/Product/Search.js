@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import './Search.css'
 import {useHistory} from "react-router-dom";
+import MetaData from "../layout/MetaData";
 
 export const Search = () => {
     const [keyword, setKeyword] = useState('');
@@ -17,6 +18,7 @@ export const Search = () => {
 
     return (
         <>
+            <MetaData title={"Search a Product -- Ecommerce"}/>
             <form className={"searchBox"} onSubmit={searchSubmitHandler}>
                 <input type={"text"} placeholder={"Search for a product..."} onChange={(e) => setKeyword(e.target.value)}/>
                 <input type={"submit"} value={"Search"}/>

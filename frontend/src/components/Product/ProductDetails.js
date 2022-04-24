@@ -8,6 +8,7 @@ import {useAlert} from "react-alert";
 import Carousel from "react-material-ui-carousel";
 import ReactStars from "react-rating-stars-component/dist/react-stars";
 import ReviewCard from "./ReviewCard";
+import MetaData from "../layout/MetaData";
 
 export const ProductDetails = () => {
     const {id} = useParams();
@@ -34,6 +35,7 @@ export const ProductDetails = () => {
         <>
             {
                 loading ? <Loader/> : <>
+                    <MetaData title={`${product.name} -- Ecommerce`}/>
                     <div className={"ProductDetails"}>
                         <div>
                             <Carousel>

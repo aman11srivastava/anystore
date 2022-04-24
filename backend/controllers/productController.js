@@ -25,6 +25,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     success: true,
     products,
     productCount,
+    RESULT_PER_PAGE
   });
 });
 

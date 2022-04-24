@@ -11,7 +11,7 @@ import ProductCard from "./ProductCard";
 export const Home = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
-    const {loading, products, productsCount, error} = useSelector(state => state?.products);
+    const {loading, products, error} = useSelector(state => state?.products);
 
     useEffect(() => {
         if (error) {

@@ -24,10 +24,9 @@ export const login = (email, password) => async (dispatch) => {
 
 export const register = (user) => async (dispatch) => {
     try {
-        // const {name, email, password, avatar} = user;
         dispatch({type: REGISTER_REQUEST});
         const config = {headers: {"Content-Type": "multipart/form-data"}};
-        const { data } = axios.post(`/api/register`, {user}, config);
+        const { data } = axios.post(`/api/register`, user, config);
         dispatch({type: REGISTER_SUCCESS, payload: data.user})
     }
     catch (err) {

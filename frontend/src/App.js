@@ -12,6 +12,9 @@ import LoginSignUp from "./components/User/LoginSignUp";
 import {useDispatch, useSelector} from "react-redux";
 import {loadUser} from "./redux/actions/userActions";
 import UserOptions from "./components/layout/Header/UserOptions";
+import Profile from "./components/User/Profile";
+import ProtectedRoute from "./components/Route/ProtectedRoute";
+import UpdateProfile from "./components/User/UpdateProfile";
 
 function App() {
     const dispatch = useDispatch();
@@ -36,6 +39,8 @@ function App() {
                 <Route path={"/products/:keyword"} component={Products}/>
                 <Route exact={true} path={"/search"} component={Search}/>
                 <Route exact={true} path={"/login"} component={LoginSignUp}/>
+                <ProtectedRoute exact={true} path={"/account"} component={Profile}/>
+                <ProtectedRoute exact={true} path={"/me/update"} component={UpdateProfile}/>
             </Switch>
             <Footer/>
         </Router>

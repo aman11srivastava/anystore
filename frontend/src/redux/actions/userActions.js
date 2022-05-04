@@ -5,7 +5,7 @@ import {
     LOGIN_SUCCESS, LOGOUT_FAIL, LOGOUT_SUCCESS,
     REGISTER_FAIL,
     REGISTER_REQUEST,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS, UPDATE_PROFILE_FAIL, UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_SUCCESS
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -27,10 +27,9 @@ export const register = (user) => async (dispatch) => {
     try {
         dispatch({type: REGISTER_REQUEST});
         const config = {headers: {"Content-Type": "multipart/form-data"}};
-        const { data } = await axios.post(`/api/register`, user, config);
+        const {data} = await axios.post(`/api/register`, user, config);
         dispatch({type: REGISTER_SUCCESS, payload: data.user})
-    }
-    catch (err) {
+    } catch (err) {
         dispatch({
             type: REGISTER_FAIL, payload: err.response.data.message
         })
@@ -41,7 +40,6 @@ export const loadUser = () => async (dispatch) => {
     try {
         dispatch({type: LOAD_USER_REQUEST});
         const {data} = await axios.get('/api/me');
-        console.log(data);
         dispatch({type: LOAD_USER_SUCCESS, payload: data.user})
     } catch (err) {
         dispatch({
@@ -57,5 +55,17 @@ export const logout = () => async (dispatch) => {
         dispatch({type: LOGOUT_SUCCESS})
     } catch (err) {
         dispatch({type: LOGOUT_FAIL, payload: err.response.data?.message})
+    }
+}
+
+export const updateProfile = (user) => async (dispatch) => {
+    try {
+        console.log(user);
+        dispatch({type: UPDATE_PROFILE_REQUEST});
+        const config = {headers: {"Content-Type": "multipart/form-data"}};
+        const {data} = await axios.put('/api/me/update', user, config);
+        dispatch({type: UPDATE_PROFILE_SUCCESS, payload: data.success});
+    } catch (err) {
+        dispatch({type: UPDATE_PROFILE_FAIL, payload: err.response.data.message});
     }
 }

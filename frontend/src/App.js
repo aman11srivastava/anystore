@@ -15,6 +15,8 @@ import UserOptions from "./components/layout/Header/UserOptions";
 import Profile from "./components/User/Profile";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
+import UpdatePassword from "./components/User/UpdatePassword";
+import ForgotPassword from "./components/User/ForgotPassword";
 
 function App() {
     const dispatch = useDispatch();
@@ -41,6 +43,8 @@ function App() {
                 <Route exact={true} path={"/login"} component={LoginSignUp}/>
                 <ProtectedRoute exact={true} path={"/account"} component={Profile}/>
                 <ProtectedRoute exact={true} path={"/me/update"} component={UpdateProfile}/>
+                <ProtectedRoute exact={true} path={"/password/update"} component={UpdatePassword}/>
+                <Route exact={true} path={"/password/forgot"} component={ForgotPassword}/>
             </Switch>
             <Footer/>
         </Router>

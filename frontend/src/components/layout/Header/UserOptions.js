@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {SpeedDial, SpeedDialAction} from "@material-ui/lab";
-import {Dashboard, ExitToApp, ListAlt, Person} from "@material-ui/icons";
+import {Dashboard, ExitToApp, ListAlt, Person, ShoppingCart} from "@material-ui/icons";
 import {ADMIN} from "../../../utils/utils";
 import {useHistory} from "react-router-dom";
 import {useAlert} from "react-alert";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../../redux/actions/userActions";
 import {Backdrop} from "@material-ui/core";
 import './Header.css';
@@ -14,9 +14,11 @@ export const UserOptions = ({user}) => {
     const history = useHistory();
     const alert = useAlert();
     const dispatch = useDispatch();
+    const {cartItems} = useSelector(state => state?.cart)
     const options = [
         {icon: <ListAlt/>, name: "Orders", func: orders},
         {icon: <Person/>, name: 'Profile', func: account},
+        {icon: <ShoppingCart style={{color: cartItems.length > 0 ? "tomato" : "unset"}}/>, name: `Cart (${cartItems.length})`, func: cart},
         {icon: <ExitToApp/>, name: 'Logout', func: logoutUser}
     ]
 
@@ -30,12 +32,14 @@ export const UserOptions = ({user}) => {
 
     function orders() {
         history.push('/orders');
-
     }
 
     function account() {
         history.push('/account');
+    }
 
+    function cart() {
+        history.push('/cart');
     }
 
     function logoutUser() {
@@ -69,6 +73,7 @@ export const UserOptions = ({user}) => {
                         icon={item.icon}
                         tooltipTitle={item.name}
                         onClick={item.func}
+                        tooltipOpen={window.innerWidth <= 600}
                     />
                 ))}
             </SpeedDial>

@@ -5,18 +5,24 @@ import {productDetailsReducer, productReducer} from "./redux/reducers/productRed
 import {userReducer} from "./redux/reducers/userReducer";
 import {profileReducer} from "./redux/reducers/profileReducer";
 import {forgotPasswordReducer} from "./redux/reducers/forgotPasswordReducer";
+import {cartReducer} from "./redux/reducers/cartReducer";
 
 const reducer = combineReducers({
     products: productReducer,
     productDetails: productDetailsReducer,
     user: userReducer,
     profile: profileReducer,
-    forgotPassword: forgotPasswordReducer
+    forgotPassword: forgotPasswordReducer,
+    cart: cartReducer
 })
 
-let initialState = {};
+let initialState = {
+    cart: {
+        cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
+    }
+};
 const middleware = [thunk];
 
-const store = createStore(reducer,  initialState, composeWithDevTools(applyMiddleware(...middleware)));
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 
 export default store;

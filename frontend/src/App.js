@@ -18,6 +18,7 @@ import UpdateProfile from "./components/User/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword";
+import Cart from "./components/Cart/Cart";
 
 function App() {
     const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
                 <ProtectedRoute exact={true} path={"/password/update"} component={UpdatePassword}/>
                 <Route exact={true} path={"/password/forgot"} component={ForgotPassword}/>
                 <Route exact={true} path={"/password/reset/:token"} component={ResetPassword}/>
+                <Route exact={true} path={"/cart"} component={Cart}/>
             </Switch>
             <Footer/>
         </Router>

@@ -2,7 +2,7 @@ import './App.css';
 import Header from "./components/layout/Header/Header";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import WebFont from 'webfontloader';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Footer from "./components/layout/Footer/Footer";
 import Home from "./components/Home/Home";
 import ProductDetails from "./components/Product/ProductDetails";
@@ -21,23 +21,35 @@ import ResetPassword from "./components/User/ResetPassword";
 import Cart from "./components/Cart/Cart";
 import Shipping from "./components/Cart/Shipping";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
+import axios from "axios";
+import Payment from "./components/Cart/Payment";
+import {Elements} from "@stripe/react-stripe-js";
+import {loadStripe} from "@stripe/stripe-js";
 
 function App() {
     const dispatch = useDispatch();
+    const [stripeApiKey, setStripeApiKey] = useState("");
     const {isAuthenticated, user} = useSelector(state => state?.user);
+
+    async function getStripeApiKey() {
+        const {data} = await axios.get('/api/stripeapikey');
+        setStripeApiKey(data.stripeApiKey);
+    }
+
     useEffect(() => {
         WebFont.load({
             google: {
                 families: ["Roboto", "Droid Sans", "Chilanka"]
             }
         })
-        dispatch(loadUser())
+        dispatch(loadUser());
+        getStripeApiKey();
     }, [dispatch])
 
     return (
         <Router>
             <Header/>
-            {isAuthenticated && <UserOptions user={user}/> }
+            {isAuthenticated && <UserOptions user={user}/>}
             <Switch>
                 <Route exact={true} path={"/"} component={Home}/>
                 <Route exact={true} path={"/product/:id"} component={ProductDetails}/>
@@ -53,6 +65,11 @@ function App() {
                 <Route exact={true} path={"/cart"} component={Cart}/>
                 <ProtectedRoute exact={true} path={"/shipping"} component={Shipping}/>
                 <ProtectedRoute exact={true} path={"/order/confirm"} component={ConfirmOrder}/>
+                {stripeApiKey && (
+                    <Elements stripe={loadStripe(stripeApiKey)}>
+                        <ProtectedRoute exact={true} path={"/process/payment"} component={Payment}/>
+                    </Elements>
+                )}
             </Switch>
             <Footer/>
         </Router>

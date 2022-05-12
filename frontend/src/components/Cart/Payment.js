@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import MetaData from "../layout/MetaData";
 import CheckoutSteps from "./CheckoutSteps";
 import './Payment.css';
@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useAlert} from "react-alert";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
+import {clearErrors, createOrder} from "../../redux/actions/orderActions";
 
 export const Payment = () => {
     const dispatch = useDispatch();
@@ -18,11 +19,21 @@ export const Payment = () => {
     const elements = useElements();
     const {shippingInfo, cartItems} = useSelector(state => state?.cart);
     const {user} = useSelector(state => state?.user);
+    const {error} = useSelector(state => state?.newOrder);
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
     const payBtn = useRef(null);
 
     const paymentData = {
         amount: Math.round(orderInfo.totalPrice * 100),
+    }
+
+    const order = {
+        shippingInfo,
+        orderItems: cartItems,
+        itemsPrice: orderInfo.subtotal,
+        taxPrice: orderInfo.tax,
+        shippingPrice: orderInfo.shippingCharges,
+        totalPrice: orderInfo.totalPrice
     }
 
     const submitHandler = async (e) => {
@@ -58,6 +69,11 @@ export const Payment = () => {
                 alert.error(result.error.message);
             } else {
                 if (result.paymentIntent.status === "succeeded") {
+                    order.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status,
+                    };
+                    dispatch(createOrder(order));
                     history.push('/success');
                 } else {
                     alert.error('There was some issue while processing your payment');
@@ -69,6 +85,13 @@ export const Payment = () => {
             alert.error(err.response.data.message);
         }
     };
+
+    useEffect(() => {
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+    }, [dispatch, error, alert])
 
     return (
         <>

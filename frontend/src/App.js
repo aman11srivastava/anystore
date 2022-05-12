@@ -25,6 +25,7 @@ import axios from "axios";
 import Payment from "./components/Cart/Payment";
 import {Elements} from "@stripe/react-stripe-js";
 import {loadStripe} from "@stripe/stripe-js";
+import OrderSuccess from "./components/Cart/OrderSuccess";
 
 function App() {
     const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
                 <Route exact={true} path={"/cart"} component={Cart}/>
                 <ProtectedRoute exact={true} path={"/shipping"} component={Shipping}/>
                 <ProtectedRoute exact={true} path={"/order/confirm"} component={ConfirmOrder}/>
+                <ProtectedRoute exact={true} path={"/success"} component={OrderSuccess}/>
                 {stripeApiKey && (
                     <Elements stripe={loadStripe(stripeApiKey)}>
                         <ProtectedRoute exact={true} path={"/process/payment"} component={Payment}/>

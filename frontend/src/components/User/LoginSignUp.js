@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './LoginSignUp.css';
 import {Face, LockOpen, MailOutline} from "@material-ui/icons";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {login, register} from "../../redux/actions/userActions";
 import {useAlert} from "react-alert";
@@ -22,6 +22,7 @@ export const LoginSignUp = () => {
     const [avatar, setAvatar] = useState();
     const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
     const dispatch = useDispatch();
+    const location = useLocation();
     const {loading, error, isAuthenticated} = useSelector(state => state?.user);
     const history = useHistory();
     const alert = useAlert();
@@ -29,6 +30,8 @@ export const LoginSignUp = () => {
     const loginTab = useRef(null);
     const registerTab = useRef(null);
     const switcherTab = useRef(null);
+
+    const redirectURL = location.search ? location.search.split('=')[1] : "/account"
 
     const loginSubmit = (e) => {
         e.preventDefault();
@@ -66,7 +69,7 @@ export const LoginSignUp = () => {
             dispatch(clearErrors())
         }
         if (isAuthenticated) {
-            history.push('/account');
+            history.push(redirectURL);
         }
     }, [dispatch, error, alert, isAuthenticated, history])
 

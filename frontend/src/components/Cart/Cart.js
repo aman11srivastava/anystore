@@ -5,10 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {addToCart, removeFromCart} from "../../redux/actions/cartActions";
 import {RemoveShoppingCart} from "@material-ui/icons";
 import {Typography} from "@material-ui/core";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import MetaData from "../layout/MetaData";
 
 export const Cart = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const {cartItems} = useSelector(state => state?.cart);
 
     const increaseQuantity = (id, quantity, stock) => {
@@ -28,8 +30,13 @@ export const Cart = () => {
         alert.success("Product removed from cart")
     }
 
+    const checkoutHandler = () => {
+        history.push('/login?redirect=shipping');
+    };
+
     return (
         <>
+            <MetaData title={"Cart"}/>
             {cartItems.length === 0 ? (
                 <>
                     <div className={"emptyCart"}>
@@ -68,7 +75,7 @@ export const Cart = () => {
                             </div>
                             <div/>
                             <div className={"checkOutBtn"}>
-                                <button>Checkout</button>
+                                <button onClick={checkoutHandler}>Checkout</button>
                             </div>
                         </div>
                     </div>

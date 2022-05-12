@@ -19,6 +19,8 @@ import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword";
 import Cart from "./components/Cart/Cart";
+import Shipping from "./components/Cart/Shipping";
+import ConfirmOrder from "./components/Cart/ConfirmOrder";
 
 function App() {
     const dispatch = useDispatch();
@@ -49,6 +51,8 @@ function App() {
                 <Route exact={true} path={"/password/forgot"} component={ForgotPassword}/>
                 <Route exact={true} path={"/password/reset/:token"} component={ResetPassword}/>
                 <Route exact={true} path={"/cart"} component={Cart}/>
+                <ProtectedRoute exact={true} path={"/shipping"} component={Shipping}/>
+                <ProtectedRoute exact={true} path={"/order/confirm"} component={ConfirmOrder}/>
             </Switch>
             <Footer/>
         </Router>

@@ -23,7 +23,6 @@ export const Shipping = () => {
         state: shippingInfo?.state
     });
 
-    console.log(info)
     function shippingSubmit(e) {
         e.preventDefault();
         if (info?.phoneNo.length !== 10) {

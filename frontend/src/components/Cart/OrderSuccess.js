@@ -10,7 +10,7 @@ export const OrderSuccess = () => {
             <div className={"orderSuccess"}>
                 <CheckCircle/>
                 <Typography>Your Order has been successfully placed!</Typography>
-                <Link to={"/order/me"}>View Orders</Link>
+                <Link to={"/orders"}>View Orders</Link>
             </div>
         </>
     )

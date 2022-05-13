@@ -82,7 +82,7 @@ export const ProductDetails = () => {
                                         <input readOnly={true} value={quantity} type={"number"}/>
                                         <button onClick={increaseQuantity}>+</button>
                                     </div>
-                                    <button onClick={addProductToCart}>Add to Cart</button>
+                                    <button disabled={product.stock < 1} onClick={addProductToCart}>Add to Cart</button>
                                 </div>
                                 <p>
                                     Status: {" "}

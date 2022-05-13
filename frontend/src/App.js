@@ -27,6 +27,7 @@ import {Elements} from "@stripe/react-stripe-js";
 import {loadStripe} from "@stripe/stripe-js";
 import OrderSuccess from "./components/Cart/OrderSuccess";
 import MyOrders from "./components/Orders/MyOrders";
+import OrderDetails from "./components/Orders/OrderDetails";
 
 function App() {
     const dispatch = useDispatch();
@@ -69,6 +70,7 @@ function App() {
                 <ProtectedRoute exact={true} path={"/order/confirm"} component={ConfirmOrder}/>
                 <ProtectedRoute exact={true} path={"/success"} component={OrderSuccess}/>
                 <ProtectedRoute exact={true} path={"/orders"} component={MyOrders}/>
+                <ProtectedRoute exact={true} path={"/order/:id"} component={OrderDetails}/>
                 {stripeApiKey && (
                     <Elements stripe={loadStripe(stripeApiKey)}>
                         <ProtectedRoute exact={true} path={"/process/payment"} component={Payment}/>

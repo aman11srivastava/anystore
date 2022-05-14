@@ -3,7 +3,12 @@ import {
     ALL_PRODUCTS_FAIL,
     ALL_PRODUCTS_REQUEST,
     ALL_PRODUCTS_SUCCESS,
-    CLEAR_ERRORS, PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS
+    CLEAR_ERRORS,
+    NEW_REVIEW_FAIL,
+    NEW_REVIEW_REQUEST, NEW_REVIEW_SUCCESS,
+    PRODUCT_DETAILS_FAIL,
+    PRODUCT_DETAILS_REQUEST,
+    PRODUCT_DETAILS_SUCCESS
 } from "../constants/productConstants";
 
 export const getProducts = (keyword = "", currentPage = 1, price = [0, 25000], category, rating = 0) => async (dispatch) => {
@@ -50,3 +55,13 @@ export const getProductDetails = (id) => async (dispatch) => {
     }
 }
 
+export const newReview = (review) => async (dispatch) => {
+    try {
+        dispatch({type: NEW_REVIEW_REQUEST});
+        const config = {headers: {"Content-Type": "application/json"}};
+        const {data} = await axios.put('/api/review', review, config);
+        dispatch({type: NEW_REVIEW_SUCCESS, payload: data.success});
+    } catch (err) {
+        dispatch({type: NEW_REVIEW_FAIL, payload: err.response.data.message});
+    }
+}

@@ -9,16 +9,7 @@ import {useParams} from "react-router-dom";
 import Pagination from 'react-js-pagination';
 import {Slider, Typography} from "@material-ui/core";
 import MetaData from "../layout/MetaData";
-
-const categories = [
-    "Laptop",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
-    "Smartphones"
-]
+import {categories} from "../../utils/utils";
 
 export const Products = () => {
     const dispatch = useDispatch();

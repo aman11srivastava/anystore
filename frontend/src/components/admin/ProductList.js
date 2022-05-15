@@ -1,18 +1,21 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {clearErrors, getAdminProducts} from "../../redux/actions/productAction";
+import {clearErrors, deleteProduct, getAdminProducts} from "../../redux/actions/productAction";
 import './ProductList.css';
 import {useAlert} from "react-alert";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {Delete, Edit} from "@material-ui/icons";
 import {Button} from "@material-ui/core";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import {DataGrid} from "@material-ui/data-grid";
+import {DELETE_PRODUCT_RESET} from "../../redux/constants/productConstants";
 
 export const ProductList = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const {products, error} = useSelector(state => state?.products);
+    const {error: productError, isDeleted} = useSelector(state => state?.product);
     const alert = useAlert();
 
     useEffect(() => {
@@ -20,8 +23,21 @@ export const ProductList = () => {
             alert.error(error);
             dispatch(clearErrors());
         }
+        if (productError) {
+            alert.error(productError);
+            dispatch(clearErrors())
+        }
+        if (isDeleted) {
+            alert.success("Product Deleted Successfully");
+            history.push('/admin/dashboard');
+            dispatch({type: DELETE_PRODUCT_RESET});
+        }
         dispatch(getAdminProducts());
-    }, [error, alert, dispatch])
+    }, [error, alert, dispatch, isDeleted, productError, history])
+
+    function deleteProductHandler(id) {
+        dispatch(deleteProduct(id))
+    }
 
     const columns = [
         {field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5},
@@ -59,7 +75,7 @@ export const ProductList = () => {
                         <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
                             <Edit/>
                         </Link>
-                        <Button>
+                        <Button onClick={() => deleteProductHandler(params.getValue(params.id, "id"))}>
                             <Delete/>
                         </Button>
                     </>

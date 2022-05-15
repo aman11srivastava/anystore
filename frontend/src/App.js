@@ -30,6 +30,7 @@ import MyOrders from "./components/Orders/MyOrders";
 import OrderDetails from "./components/Orders/OrderDetails";
 import Dashboard from "./components/admin/Dashboard";
 import ProductList from "./components/admin/ProductList";
+import NewProduct from "./components/admin/NewProduct";
 
 function App() {
     const dispatch = useDispatch();
@@ -75,6 +76,7 @@ function App() {
                 <ProtectedRoute exact={true} path={"/order/:id"} component={OrderDetails}/>
                 <ProtectedRoute isAdmin={true} exact={true} path={"/admin/dashboard"} component={Dashboard}/>
                 <ProtectedRoute isAdmin={true} exact={true} path={"/admin/products"} component={ProductList}/>
+                <ProtectedRoute isAdmin={true} exact={true} path={"/admin/product"} component={NewProduct}/>
                 {stripeApiKey && (
                     <Elements stripe={loadStripe(stripeApiKey)}>
                         <ProtectedRoute exact={true} path={"/process/payment"} component={Payment}/>

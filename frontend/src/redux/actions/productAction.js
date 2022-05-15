@@ -17,7 +17,7 @@ import {
     NEW_REVIEW_SUCCESS,
     PRODUCT_DETAILS_FAIL,
     PRODUCT_DETAILS_REQUEST,
-    PRODUCT_DETAILS_SUCCESS
+    PRODUCT_DETAILS_SUCCESS, UPDATE_PRODUCT_FAIL, UPDATE_PRODUCT_REQUEST, UPDATE_PRODUCT_SUCCESS
 } from "../constants/productConstants";
 
 export const getProducts = (keyword = "", currentPage = 1, price = [0, 25000], category, rating = 0) => async (dispatch) => {
@@ -103,5 +103,16 @@ export const deleteProduct = (id) => async (dispatch) => {
         dispatch({type: DELETE_PRODUCT_SUCCESS, payload: data.success});
     } catch (err) {
         dispatch({type: DELETE_PRODUCT_FAIL, payload: err.response.data.message});
+    }
+}
+
+export const updateProduct = (id, product) => async (dispatch) => {
+    try {
+        dispatch({type: UPDATE_PRODUCT_REQUEST});
+        const config = {headers: {"Content-Type": "application/json"}};
+        const {data} = await axios.put(`/api/admin/product/${id}`, product, config);
+        dispatch({type: UPDATE_PRODUCT_SUCCESS, payload: data.success});
+    } catch (err) {
+        dispatch({type: UPDATE_PRODUCT_FAIL, payload: err.response.data.message});
     }
 }

@@ -52,3 +52,7 @@
         font: 300 4vw "Roboto";
     }
 }
+
+.admin-product-name {
+    text-decoration: none !important;
+}

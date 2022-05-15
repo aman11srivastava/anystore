@@ -46,6 +46,13 @@ export const ProductList = () => {
             headerName: "Name",
             minWidth: 350,
             flex: 1,
+            renderCell: (params) => (
+                <>
+                    <Link className={"admin-product-name"} to={`/product/${params.getValue(params.id, "id")}`}>
+                        {params.getValue(params.id, "name")}
+                    </Link>
+                </>
+            )
         },
         {
             field: "stock",

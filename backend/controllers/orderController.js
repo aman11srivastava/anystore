@@ -2,7 +2,7 @@ const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const { DELIVERED } = require("../utils/constants");
+const { DELIVERED, SHIPPED} = require("../utils/constants");
 
 // Create new order
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {
@@ -90,9 +90,11 @@ exports.updateOrderStatus = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("This order has already been delivered", 400));
   }
 
-  order.orderItems.forEach(async (order) => {
-    await updateStock(order.product, order.quantity);
-  });
+  if(req.body.status === SHIPPED) {
+    order.orderItems.forEach(async (order) => {
+      await updateStock(order.product, order.quantity);
+    });
+  }
 
   order.orderStatus = req.body.status;
   if (req.body.status === DELIVERED) {

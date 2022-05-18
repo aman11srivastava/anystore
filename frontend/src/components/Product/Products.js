@@ -42,7 +42,7 @@ export const Products = () => {
             {
                 loading ? <Loader/> : (
                     <>
-                        <MetaData title={"Products -- Ecommerce"}/>
+                        <MetaData title={"Products -- Anystore"}/>
                         <h2 className={"productsHeading"}>Products</h2>
                         <div className={"products"}>
                             {products && products.map((product) => (

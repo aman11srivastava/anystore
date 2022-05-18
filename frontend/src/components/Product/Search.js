@@ -18,7 +18,7 @@ export const Search = () => {
 
     return (
         <>
-            <MetaData title={"Search a Product -- Ecommerce"}/>
+            <MetaData title={"Search a Product -- AnyStore"}/>
             <form className={"searchBox"} onSubmit={searchSubmitHandler}>
                 <input type={"text"} placeholder={"Search for a product..."} onChange={(e) => setKeyword(e.target.value)}/>
                 <input type={"submit"} value={"Search"}/>

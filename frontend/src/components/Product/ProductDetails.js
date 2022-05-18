@@ -79,7 +79,7 @@ export const ProductDetails = () => {
         <>
             {
                 loading ? <Loader/> : <>
-                    <MetaData title={`${product.name} -- Ecommerce`}/>
+                    <MetaData title={`${product.name} -- Anystore`}/>
                     <div className={"ProductDetails"}>
                         <div>
                             <Carousel>

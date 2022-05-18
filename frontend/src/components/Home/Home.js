@@ -26,9 +26,9 @@ export const Home = () => {
             {
                 loading ? <Loader/> :
                     <>
-                        <MetaData title={"Ecommerce"}/>
+                        <MetaData title={"Anystore"}/>
                         <div className={"banner"}>
-                            <p>Welcome to Ecommerce</p>
+                            <p>Welcome to Anystore</p>
                             <h1>FIND AMAZING PRODUCTS BELOW</h1>
                             <a href={"#container"}>
                                 <button>

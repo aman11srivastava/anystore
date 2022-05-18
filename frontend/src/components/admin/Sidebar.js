@@ -10,7 +10,7 @@ export const Sidebar = () => {
         <>
             <div className={"sidebar"}>
                 <Link to={"/"}>
-                    <img src={logo} alt={"Ecommerce"}/>
+                    <img src={logo} alt={"Anystore"}/>
                 </Link>
                 <Link to={"/admin/dashboard"}>
                     <Dashboard/> Dashboard

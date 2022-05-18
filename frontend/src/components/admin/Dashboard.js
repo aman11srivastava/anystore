@@ -28,6 +28,10 @@ export const Dashboard = () => {
         dispatch(getAllUsers());
     }, [dispatch])
 
+    let totalAmount = 0;
+    orders && orders.forEach((order) => {
+        totalAmount = totalAmount + order.totalPrice
+    })
 
     const lineState = {
         labels: ["Initial Amount", "Amount Earned"],
@@ -36,7 +40,7 @@ export const Dashboard = () => {
                 label: "Total Amount",
                 backgroundColor: ["tomato"],
                 hoverBackgroundColor: ["rgb(197, 72, 49)"],
-                data: [0, 4000]
+                data: [0, totalAmount]
             }
         ]
     };
@@ -59,7 +63,7 @@ export const Dashboard = () => {
                     <Typography component={"h1"}>Dashboard</Typography>
                     <div className={"dashboardSummary"}>
                         <div>
-                            <p>Total Amount <br/> Rs 2000</p>
+                            <p>Total Amount <br/> Rs {totalAmount}</p>
                         </div>
                         <div className={"dashboardSummaryBox2"}>
                             <Link to={"/admin/products"}>

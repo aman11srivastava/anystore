@@ -17,7 +17,7 @@ export const Header = () => {
         logoHoverColor: "#eb4034",
         link1Text: "Home",
         link2Text: "Products",
-        link3Text: isAuthenticated ? "Account" : "Login",
+        link3Text: isAuthenticated ? "My Account" : "Login",
         link4Text: isAuthenticated ? "Cart" : "",
         link1Url: "/",
         link2Url: "/products",

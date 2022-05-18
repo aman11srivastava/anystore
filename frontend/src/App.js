@@ -62,6 +62,11 @@ function App() {
         <Router>
             <Header/>
             {isAuthenticated && <UserOptions user={user}/>}
+            {stripeApiKey && (
+                <Elements stripe={loadStripe(stripeApiKey)}>
+                    <ProtectedRoute exact={true} path={"/process/payment"} component={Payment}/>
+                </Elements>
+            )}
             <Switch>
                 <Route exact={true} path={"/"} component={Home}/>
                 <Route exact={true} path={"/product/:id"} component={ProductDetails}/>
@@ -89,11 +94,6 @@ function App() {
                 <ProtectedRoute isAdmin={true} exact={true} path={"/admin/users"} component={UserList}/>
                 <ProtectedRoute isAdmin={true} exact={true} path={"/admin/user/:id"} component={UpdateUser}/>
                 <ProtectedRoute isAdmin={true} exact={true} path={"/admin/reviews"} component={ProductReviews}/>
-                {stripeApiKey && (
-                    <Elements stripe={loadStripe(stripeApiKey)}>
-                        <ProtectedRoute exact={true} path={"/process/payment"} component={Payment}/>
-                    </Elements>
-                )}
             </Switch>
             <Footer/>
         </Router>

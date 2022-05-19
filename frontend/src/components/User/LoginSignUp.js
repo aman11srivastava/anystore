@@ -71,7 +71,7 @@ export const LoginSignUp = () => {
         if (isAuthenticated) {
             history.push(redirectURL);
         }
-    }, [dispatch, error, alert, isAuthenticated, history])
+    }, [dispatch, error, alert, isAuthenticated, history, redirectURL])
 
     const switchTabs = (e, tab) => {
         if (tab === LOGIN) {
